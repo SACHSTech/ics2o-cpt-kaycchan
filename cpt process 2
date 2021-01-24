@@ -1,0 +1,166 @@
+""" 
+------------------------------------------------------------------------
+Name:   main.py
+
+Purpose:    create a program that demonstrates all skills learned in ICS2O1
+
+Author: Chan.K
+
+Created:    14/01/2021
+------------------------------------------------------------------------
+"""
+
+import pygame
+
+# Define some colors
+BLACK = (0, 0, 0)
+WHITE = (255, 255, 255)
+GREEN = (0, 255, 0)
+RED = (255, 0, 0)
+BLUE = (0, 0, 128)
+TRANSPARENT = (0, 0, 0, 0)
+
+pygame.init()
+pygame.display.init()
+pygame.font.init()
+
+# Set the width and height of the screen [width, height]
+SCREEN_WIDTH = 800
+SCREEN_HEIGHT = 600
+screen = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT))
+ 
+pygame.display.set_caption("ICS2O1 CPT")
+
+# Load and set up graphics
+farm_hat = pygame.image.load("images/cursor_hat.png").convert_alpha()
+field_scene = pygame.image.load("images/farm_background.png").convert_alpha()
+cow_feed = pygame.image.load("images/hay_gpu.png").convert_alpha()
+cow = pygame.image.load("images/cow.png").convert_alpha()
+chicken = pygame.image.load("images/chicken.png").convert_alpha()
+pig = pygame.image.load("images/pig.png").convert_alpha()
+chicken_feed = pygame.image.load("images/chickenfeed_cpucooler.png").convert_alpha()
+pig_feed = pygame.image.load("images/wheat_motherboard.png").convert_alpha()
+barn_icon = pygame.image.load("images/barn_icon.png").convert_alpha()
+barn_scene = pygame.image.load("images/barn_interior.jpg").convert_alpha()
+field_icon = pygame.image.load("images/hill_icon.png").convert_alpha()
+coop_scene = pygame.image.load("images/computertower_chickencoop.png").convert_alpha()
+coop_icon = pygame.image.load("images/coop_icon.png").convert_alpha()
+game_instructions = pygame.image.load("images/game_instructions.png").convert_alpha()
+instructions_icon = pygame.image.load("images/instructions_button.png").convert_alpha()
+
+# Set positions of graphics
+background_image_pos = [0, 0]
+field_scene_pos = [0, 0]
+cow_feed_pos = [0, 20]
+chicken_feed_pos = [90, 7]
+pig_feed_pos = [180, 12]
+barn_icon_pos = [700, 10]
+farm_hat_pos = [260, 20]
+barn_scene_pos = [0, 0]
+field_icon_pos = [600, 25]
+coop_scene_pos = [0, 0]
+coop_icon_pos = [500, 10]
+game_instructions_pos = [0, 0]
+instructions_icon_pos = [425, 20]
+
+# Initialize image properties
+cursor_size = (40, 20)
+farm_hat = pygame.transform.scale(farm_hat, (40, 20))
+field_scene = pygame.transform.scale(field_scene, (800, 600))
+cow_feed = pygame.transform.scale(cow_feed, (80, 60))
+cow = pygame.transform.scale(cow, (130, 128))
+chicken = pygame.transform.scale(chicken, (110, 115))
+pig = pygame.transform.scale(pig, (120, 117))
+chicken_feed = pygame.transform.scale(chicken_feed, (80, 80))
+pig_feed = pygame.transform.scale(pig_feed, (70, 70))
+barn_icon = pygame.transform.scale(barn_icon, (80, 80))
+barn_scene = pygame.transform.scale(barn_scene, (800, 600))
+field_icon = pygame.transform.scale(field_icon, (80, 80))
+coop_scene = pygame.transform.scale(coop_scene, (800, 600))
+coop_icon = pygame.transform.scale(coop_icon, (80, 80))
+game_instructions = pygame.transform.scale(game_instructions, (800, 600))
+instructions_icon = pygame.transform.scale(instructions_icon, (60, 60))
+
+# Create fonts
+
+# Create text
+ 
+#Loop until the user clicks the close button.
+done = False
+ 
+# Used to manage how fast the screen updates
+clock = pygame.time.Clock()
+
+cursor = farm_hat
+background_image = field_scene
+
+#########################################
+# -------- Main Program Loop -----------#
+#########################################
+while not done:
+
+    pos = pygame.mouse.get_pos()
+
+    # --- Main event loop
+    for event in pygame.event.get():
+        if event.type == pygame.QUIT:
+            done = True
+          
+        if event.type == pygame.MOUSEBUTTONUP:
+          x = pos[0]
+          y = pos[1]
+
+          if x>0 and x<80 and y>20 and y<80:
+            cursor = cow_feed
+
+          if x>90 and x<170 and y>7 and y<87:
+            cursor = chicken_feed
+          
+          if x>180 and x<250 and y>12 and y<82:
+            cursor = pig_feed
+          
+          if x>260 and x<300 and y>20 and y<40:
+            cursor = farm_hat
+          
+          if x>700 and x<780 and y>10 and y<90:
+            background_image = barn_scene
+          
+          if x>600 and x<680 and y>25 and y<105:
+            background_image = field_scene
+
+          if x>500 and x<580 and y>10 and y<90:
+            background_image = coop_scene
+          
+          if x>425 and x<485 and y>20 and y<80:
+            background_image = game_instructions
+
+    # --- Game logic should go here
+ 
+    # --- Add images to screen
+    screen.blit(background_image, background_image_pos)
+    screen.blit(field_scene, field_scene_pos)
+    screen.blit(cow_feed, cow_feed_pos)
+    screen.blit(chicken_feed, chicken_feed_pos)
+    screen.blit(pig_feed, pig_feed_pos)
+    screen.blit(barn_icon, barn_icon_pos)
+    screen.blit(farm_hat, farm_hat_pos)
+    screen.blit(field_icon, field_icon_pos)
+    screen.blit(coop_icon, coop_icon_pos)
+    screen.blit(instructions_icon, instructions_icon_pos)
+
+    # --- Add text to screen
+
+    # Position image on mouse cursor
+    cursor_pos = pygame.mouse.get_pos()
+    cursor_x = cursor_pos[0] - cursor_size[0]/2;
+    cursor_y = cursor_pos[1] - cursor_size[1]/2;
+    screen.blit(cursor, (cursor_x, cursor_y))
+     
+    # --- Go ahead and update the screen with what we've drawn.
+    pygame.display.flip()
+ 
+    # --- Limit to 60 frames per second
+    clock.tick(60)
+     
+# Close the window and quit.
+pygame.quit()
